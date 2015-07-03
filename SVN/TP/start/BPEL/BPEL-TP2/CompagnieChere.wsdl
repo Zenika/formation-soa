@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://compagnie.chere/price" xmlns:types="http://compagnie.chere/price/types" targetNamespace="http://compagnie.chere/price">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://compagnie.chere/price/types" elementFormDefault="qualified">
+			<xs:element name="reference" type="xs:string"/>
+			<xs:element name="prix" type="xs:string"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="getPrixMessageRequest">
+		<wsdl:part name="ref" element="types:reference"/>
+	</wsdl:message>
+	<wsdl:message name="getPrixMessageResponse">
+		<wsdl:part name="prix" element="types:prix"/>
+	</wsdl:message>
+	<wsdl:portType name="CieCherePortType">
+		<wsdl:operation name="getPrix">
+			<wsdl:input message="tns:getPrixMessageRequest"/>
+			<wsdl:output message="tns:getPrixMessageResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="CieChereBinding" type="tns:CieCherePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getPrix">
+			<soap:operation soapAction="tns:getPrix"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="CieChereService">
+		<wsdl:port name="CieCherePort" binding="tns:CieChereBinding">
+			<soap:address location="http://localhost:8088/mockCieChereBinding"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

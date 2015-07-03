@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.resanet.partenaires.com/commentaire"
+	xmlns:tns="http://www.resanet.partenaires.com/commentaire"
+	elementFormDefault="qualified">
+
+	<element name="ajouter">
+		<complexType>
+			<sequence>
+				<element name="hotel" type="string" />
+				<element name="commentaire" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="lister">
+		<complexType>
+			<sequence>
+				<element name="hotel" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="listerResponse">
+		<complexType>
+			<sequence>
+				<element maxOccurs="unbounded" minOccurs="0" name="commentaire"
+					type="string" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="commentaireFault">
+		<complexType>
+			<sequence>
+				<element name="codeErreur" type="int" />
+				<element name="messageErreur" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+</schema>
