@@ -1,7 +1,11 @@
 [
-  "00_agenda.md",
-  "01_bases.md",
-  "02_code.md",
-  "03_images.md",
-  "04_animations.md"
+  "SOA_-_00_-_Introduction.md",
+  "SOA_-_01_-_Les_problématiques_d'intégration.md",
+  "SOA_-_02_-_Services_Oriented_Architecture.md",
+  "SOA_-_03_-_La_problématique_universelle,_l'échange_de_messages.md",
+  "SOA_-_04_-_La_manipulation_des_données_XML.md",
+  "SOA_-_05_-_Les_Web_Services.md",
+  "SOA_-_06_-_Les_MOM_-_Messages_Oriented_Middleware.md",
+  "SOA_-_07_-_Les_ESB_-_Entreprise_Service_Bus.md",
+  "SOA_-_08_-_BPEL_-_Orchestration_de_services_métiers.md"
 ]
