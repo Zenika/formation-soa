@@ -1514,7 +1514,7 @@ Notes :
 	http://cxf.apache.org/jaxrs
 	http://cxf.apache.org/schemas/jaxrs.xsd">
 	
-	<jaxrs:serverid="resanetService" address="/resanet" 
+	<jaxws:endpoint id="resanetService" address="/resanet" 
 		serviceClass="com.resanet.ws.VoyageService"/>
 </beans>
 ```
@@ -1535,7 +1535,7 @@ Notes :
 ![](ressources/images/05_-_Déploiement-10000000000001630000004F3F6CC3CD.png)
 
 - Accéder au Web Service via l'adresse du WADL
-http://localhost:8080/[NOM_PROJET]/services/[ENDPOINT_WS]?wadl
+http://localhost:8080/[NOM_PROJET]/services/[ENDPOINT_WS]?wsdl
 
 
 Notes :

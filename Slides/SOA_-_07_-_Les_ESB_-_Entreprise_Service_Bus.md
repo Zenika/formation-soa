@@ -797,6 +797,10 @@ Notes :
 		- DSL (recommandé)
 		- XML
 
+<figure style="position: absolute; bottom: 450px; right: 10px;">
+    <img src="ressources/images/SOA_47_camel.png" style="margin: auto;"/>
+</figure>
+
 Notes :
 
 
@@ -811,9 +815,6 @@ Notes :
 		- ServiceMix
 		- ActiveMQ
 
-<figure style="position: absolute; bottom: 450px; right: 10px;">
-    <img src="ressources/images/SOA_47_camel.png" style="margin: auto;"/>
-</figure>
 
 Notes :
 
