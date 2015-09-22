@@ -1029,7 +1029,7 @@ Notes :
 ## Camel – Les prédicats
 
 - Ensemble de conditions à évaluer
-	- Résultat binaire – vrai ou faux (méthodematches)
+	- Résultat binaire – vrai ou faux (méthode matches)
 	- Très puissant pour créer les critères de routages
 	- Support de nombreux langages
 		- XPath, XQuery, Python, Groovy, etc.
@@ -1039,8 +1039,8 @@ XPath:
 import org.apache.camel.Predicate;
 import org.apache.camel.builder.xml.Namespaces;
 
-Namespacesns =newNamespaces("ns","http://esb.resanet.com");
-Predicateprice=ns.xpath("/ns:order/ns:price/text()='10'");
+Namespaces ns = new Namespaces("ns","http://esb.resanet.com");
+Predicate price = ns.xpath("/ns:order/ns:price/text()='10'");
 ```
 
 
@@ -1050,7 +1050,7 @@ Notes :
 
 ## Camel – Les prédicats
 
-- La classePredicateBuilderoffre les fonctions élémentaires
+- La classe *PredicateBuilder* offre les fonctions élémentaires
 	- and, or, not, isLessThan, isNull, regex, etc.
 
 
@@ -1101,7 +1101,7 @@ Notes :
 ## Camel – Recipient List (mode dynamique)
 
 - Recipient List en Camel
-	- Critères de routage calculé à l'exécution via uneExpression
+	- Critères de routage calculé à l'exécution via une Expression
 
 ```
 recipientList(Expression)
@@ -1120,7 +1120,7 @@ Notes :
 ## Camel – Les expressions
 
 - Permet d'évaluer des expressions sur un échange de messages (utilisé par les Prédicats)
-	- Résultat complexe (méthodeevalutate)
+	- Résultat complexe (méthode *evalutate*)
 	- Support de nombreux langages
 		- Bean, Groovy, Header, Python, SQL, XPath, etc.
 
@@ -1150,7 +1150,7 @@ from("direct:resequencer")
 // stream resequencer
 from("direct:resequencer2")
 .resequencer(header("priority"))
-.stream().timeout(1000L).comparator(newReverseComparator())
+.stream().timeout(1000L).comparator(new ReverseComparator())
 .to("direct:resequencerOut");
 ```
 
@@ -1202,7 +1202,7 @@ Notes :
 - Syntaxe
 
 ```
-file:directoryName[?options]
+file://directoryName[?options]
 ```
 
 - Quelques options couramment utilisées
@@ -1227,7 +1227,7 @@ Notes :
 
 
 ```
-jms:[queue:|topic:]destinationName[?options]
+jms:[queue:|topic:].destinationName[?options]
 ```
 
 - Quelques options couramment utilisées
@@ -1252,7 +1252,7 @@ Notes :
 - Configurer le provider JMS
 
 ```
-monJMS:[queue:|topic:]destination
+monJMS:[queue:|topic:].destinationName[?options]
 ```
 
 
@@ -1260,12 +1260,12 @@ monJMS:[queue:|topic:]destination
 	- Pour Apache ActiveMQ, utiliser le composant standard fourni avec la distributionactivemq
 
 ```
-<camelContextid="camel"xmlns="http://camel.apache.org/schema/spring"/>
+<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring"/>
 
-<beanid="monJMS"class="org.apache.camel.component.jms.JmsComponent">
+<bean id="monJMS" class="org.apache.camel.component.jms.JmsComponent">
 <property name="connectionFactory">
 <bean class="org.apache.activemq.ActiveMQConnectionFactory">
-<property name="brokerURL"value="vm://bkr"/>
+<property name="brokerURL" value="vm://bkr"/>
 </bean></property></bean>
 ```
 
@@ -1401,7 +1401,7 @@ Notes :
 ```
 // processor message translator
 from("direct:msgTransProc")
-.process(newWorldProcessor())
+.process(new WorldProcessor())
 .to("direct:messageTranslatorOut");
 
 // transform message translator
@@ -1409,8 +1409,8 @@ from("direct:msgTransTransf")
 .transform(body().append(" Transform!"))
 .to("direct:messageTranslatorOut");
 
-staticclassWorldProcessorimplementsProcessor {
-publicvoidprocess(Exchange exchange) {
+static class WorldProcessor implements Processor {
+public void process(Exchange exchange) {
 Message in = exchange.getIn();
 in.setBody(in.getBody(String.class) +" World!");
 }

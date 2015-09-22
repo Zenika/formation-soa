@@ -23,6 +23,12 @@
 	- TP10 – Comparateur de tarifs de billets d’avion
 	- TP11 – Bonus : Processus durables14
 
+## Configuration pour les TPs
+Eclipse Mars (jee edition)
+Apache CXF 3.1.2
+Java 8
+Tomcat 8	
+	
 ## Les Web Services
 
 ## TP1 – Développer un premier Web Service
@@ -35,10 +41,13 @@ L'objectif métier de ce service est de fournir un message d'accueil à l'adress
 ### Développement d'un POJO
 
 - Dezipper le fichier CXF
-- Créer un nouveau projet Java sous Eclipse
-- Créer une nouvelle "User Library" CXF contenant l'ensemble des jar présents dans le répertoire lib de CXF 
-et ajouter cette bibliothèque au classpath du nouveau projet
-- Créer une interfacecom.resanet.ws.AccueilService contenant une fonction
+- Créer un nouveau projet Java sous Eclipse (Dynamic Web Project) et cocher la case générer le fichier web.xml
+- Sous Eclipse, aller dans Windows->Préférences-> Web Service configurer le path de CXF
+- Sous Eclipse, aller dans Windows->Préférences->Servers->Runtime Environment installer Tomcat 8.
+- Sous Eclipse, click droit sur le projet nouvellement créé, aller sur Préférences->Project Facet et cocher CXF.
+- Sous Eclipse, click droit sur le projet nouvellement créé, aller sur Préférences->Targeted runtime et choississez Tomcat 8.
+- Créer une nouvelle "User Library" CXF contenant l'ensemble des jar présents dans le répertoire lib de CXF et ajouter cette bibliothèque au classpath du nouveau projet
+- Créer une interface com.resanet.ws.AccueilService contenant une fonction
 	- afficherMessage prenant le nom du partenaire (ie. String) en paramètre d'entrée et renvoyant un message (ie. String) en sortie
 - Créer une classe com.resanet.ws.AccueilServiceImpl implémentant l'interface précédente 
 et renvoyant le message "RESANET : Bienvenue [nom_partenaire]"
@@ -48,12 +57,11 @@ et renvoyant le message "RESANET : Bienvenue [nom_partenaire]"
 - Ajouter l'annotation @WebService à l'interface nouvellement créée (sans paramètre) 
 ainsi qu'à la classe l'implémentant (paramètres :endpointInterface="com.resanet.ws.AccueilService") : 
 le Web service est prêt à être publié
-
 - Créer une classe com.resanet.ws.ServerAccueil contenant une fonction main avec le contenu suivant :
 
 ```
 System.out.println("Serveur démarré...");
-AccueilService service =newAccueilServiceImpl();
+AccueilService service =new AccueilServiceImpl();
 String address ="http://localhost:9000/accueil";
 Endpoint.publish(address, service);
 ```
@@ -76,7 +84,7 @@ d'un partenaire fictif comme paramètre d'entrée (ie. remplacer le caractère?)
 
 ```
 URL wsdlURL =newURL("http://localhost:9000/accueil?wsdl");
-QName serviceName =newQName("http://ws.resanet.com/","AccueilServiceImplService");
+QName serviceName =new QName("http://ws.resanet.com/","AccueilServiceImplService");
 Service service = Service.create(wsdlURL, serviceName);
 AccueilService client = service.getPort(AccueilService.class);
 System.out.println(client.afficherMessage("Air France"));
@@ -112,6 +120,38 @@ Ce service permettra d'ajouter et de lire les commentaires associés à un hôte
 - Générer l'ensemble des classes Java à partir du fichier WSDL
 - Implémenter le service (utiliser une Map<String, <String>List> afin de simuler une base de données d'hôtels : String étant le nom de l'hôtel)
 - Tester le service via soapUI et/ou un consommateur JavaWS
+
+## TP2– WSDL avancée
+
+L'objectif du TP est de sécuriser un webservice avec ws-security et utiliser ws-attachment (profil avancé sur ws-*).
+Ce webservice sera un module de gestion de personne et comportera deux méthodes/opérations:
+- affichePersonne retourne quelques informations d'une personne
+- detailPersonne() retourne toutes les informations de la personne
+
+Etapes 
+- Créer un projet Web sous Eclipse
+- Configurer un serveur Tomcat sous Eclipse et y ajouter le projet
+- Créer un POJO Java Personne qui comportera les attributs suivant:
+	- nom (chaine de caractère)
+	- prenom (chaine de caractère)
+	- age (un numéric)
+	- sexe (un caractère)
+	- photo (un dataHandler)
+- Dans le fichier tomcat-user.xml qui se trouve dans le répertoire conf de TOMCAT, rajouter une ligne permettant de créer un user avec loin et password et un nouveau rôle.
+Seul cet utilisateur pourra utiliser le webservice qui sera à mettre en place.
+- Développer un webservice qui mettra à disposition 2 opérations
+	- affichePersonne prend en argument un nom et retourne le nom, prénom, et l'âge de la personne.
+	- detailPersonne prend en argument un nom et retourne tous les attributs de la personne.
+- Construire un jeu de donnée.
+- Activer le protocole MTOM
+- Développer les méthodes 
+- Sécuriser vos l'URL en utilisant les contraintes de sécurités
+- Une fois fini, publier sur Tomcat et tester avec SOAPUI.
+
+Observez-vous une différence dans le WSDL généré ?
+Si oui laquelle.
+
+
 
 ## TP3– REST
 

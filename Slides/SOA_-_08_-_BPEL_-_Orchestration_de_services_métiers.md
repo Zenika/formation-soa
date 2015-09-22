@@ -512,7 +512,7 @@ Notes :
 - Notation XML
 
 ```
-<bpel:assignvali date="no" name="assign">
+<bpel:assign validate="no" name="assign">
 <bpel:copy>
 <bpel:frompart="payload" variable="input">
 <bpel:query 
@@ -545,7 +545,7 @@ Notes :
 - Notation XML
 
 ```
-<bpel:scopename="scope">[...]</bpel:scope>
+<bpel:scope name="scope">[...]</bpel:scope>
 ```
 
 
@@ -565,7 +565,7 @@ Notes :
 - Notation XML
 
 ```
-<bpel:sequencename="sequence">[...]</bpel:sequence>
+<bpel:sequence name="sequence">[...]</bpel:sequence>
 ```
 
 Notes :
@@ -577,16 +577,15 @@ Notes :
 ## Activités structurantes – Flow
 
 - Permet d'avoir une série d'activités, exécutées de manière concurrentes
-	- L'exécution simultanée dépend des
-	- implémentations des moteurs BPEL
+	- L'exécution simultanée dépend des implémentations des moteurs BPEL
 
 - Permet d'avoir des activités imbriquées
-	- Peut contenirnactivités
+	- Peut contenir *n* activités
 
 - Notation XML
 
 ```
-<bpel:flowname="flow">[...]</bpel:flow>
+<bpel:flow name="flow">[...]</bpel:flow>
 ```
 
 
@@ -598,10 +597,10 @@ Notes :
 
 ## Activités conditionnelles – If - Else if - Else
 
-- Fournitnbranches conditionnelles
+- Fournit *n* branches conditionnelles
 	- Chacune de ces branches est associée à une expression booléenne
 	- La première branche (de gauche à droite) dont la condition est vraie est exécutée
-	- Si aucune condition vérifiée, la brancheElseest finalement exécutée
+	- Si aucune condition vérifiée, la branche *Else* est finalement exécutée
 
 
 ```
@@ -707,7 +706,7 @@ Notes :
 - Rappel : Toutes les données manipulées nativement par BPEL sont au format XML
 	- Messages reçus, Variables internes
 
-- Les activitésassignsont les seules activités permettant de manipuler les données XML
+- Les activités *assign* sont les seules activités permettant de manipuler les données XML
 	- Manipulation directe
 	- Manipulation littérale
 	- Manipulation d'expressions
@@ -725,7 +724,7 @@ Notes :
 
 - Avant de pouvoir manipuler une variable XML, il est indispensable de l'initialiser
 	- Avec les données XML souhaitées
-	- Pour éviter les selection *Failure*
+	- Pour éviter les selections *Failure*
 - Pour cela, il faut utiliser le mode literal
 
 ```
@@ -775,7 +774,7 @@ Notes :
 ## Le langage XPath dans BPEL
 
 - Depuis BPEL 2.0, la spécification impose en plus le support de la fonction suivante
-	- bpel:doXSLTransformpour réaliser directement les transformation XSLT, sans passer par une fonction propriétaire
+	- bpel:doXSLTransform pour réaliser directement les transformation XSLT, sans passer par une fonction propriétaire
 	- Support natif des transformations XSLT
 
 - L'ancienne fonction bpws:getVariableDataqui était utilisé pour accéder aux variables est remplacée par un « $ »
@@ -836,7 +835,7 @@ Notes :
 
 ## Fonction custom XPath pour Apache ODE
 
-- Utiliser sa fonction XPath dans unassignpar exemple
+- Utiliser sa fonction XPath dans un *assign* par exemple
 
 - Attention
 	- Il faut utiliser le xpath2.0 pour utiliser les XPath avec Saxon
@@ -885,7 +884,7 @@ Notes :
 - Langage de transformation XML
 	- À partir de 2 documents
 		- Document XML
-		- Feuille XSLT
+		- Feuille XSLT (CSV, PDF, XML, ...)
 
 - On applique la transformation pour produire un nouveau document XML en sortie
 
@@ -906,6 +905,7 @@ Notes :
 <xsl:stylesheet version="1.0" 
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns:tns="http://bpel.tnsnet.com/xslt">
+
 <xsl:template match="/">
 <tns:output>
 <xsl:value-of select="tns:input/tns:value"/>
@@ -925,7 +925,7 @@ Notes :
 
 - En BPEL 2.0
 	- Support natif des transformations XSLT
-	- XPathbpel:doXSLTransformpour réaliser directement les transformation XSLT, sans passer par une fonction propriétaire
+	- XPath bpel:doXSLTransform pour réaliser directement les transformation XSLT, sans passer par une fonction propriétaire
 	- object bpel:doXslTransform(string, node-set, (string, object)*)
 
 
@@ -1010,7 +1010,7 @@ Notes :
 - WSDL synchrone
 
 ```
-<messagen ame="RequestMessage">
+<message name="RequestMessage">
 <partname="payload"element="tns:Request"/></message>
 <message name="ResponseMessage">
 <partname="payload"element="tns:Response"/></message>
@@ -1054,14 +1054,10 @@ Notes :
 	<message name="RequestMessage">
 		<part name="payload" element="tns:Request"/>
 	</message>
-	<message name="ResponseMessage">
-		<part name="payload" element="tns:Response"/>
-	</message>
 
-	<portType name="operationSynchrone">
+	<portType name="operationAsynchrone">
 		<operation name="process">
 			<input message="tns:RequestMessage"/>
-			<output message="tns:ResponseMessage"/>
 		</operation>
 	</portType>
 ```
@@ -1161,6 +1157,7 @@ Notes :
 <port name="ProcessPort" binding="tns:ProcessBinding">
 <soap:address 
 location="http://localhost:8080/Process"/></port></service>
+
 <service name="ProcessServiceCallback">
 <port name="ProcessCallbackPort" 
 binding="tns:ProcessCallbackBinding">
@@ -1472,7 +1469,7 @@ Notes :
 - Génération du code Java (mode contract-first) JAXWS
 	- CXF
 	- JAXWS-RI
-	- JBossWS
+	- JBossWS (sur JBoss AS5), SwitchYard
 
 - Implémentation du Web Service
 
@@ -1561,12 +1558,12 @@ Notes :
 
 ## Les bonnes pratiques
 
-- Créer desscopes
+- Créer des scopes
 	- Avoir des variables locales
 	- Lisibilité du code
 	- Performance
 
-- Éviter les manipulations trop complexes dans lesassigns
+- Éviter les manipulations trop complexes dans les assigns
 	- Privilégier les feuille XSL
 	- Performance
 	

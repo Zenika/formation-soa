@@ -102,10 +102,7 @@ Notes :
 - Le principe de REST est de revenir aux fondamentaux de l'architecture du Web
 	- URL→ identifie les ressources
 	- HTTP → fournit les opérations
-		- GET : récupérer une ressource
-		- POST : créer une ressource
-		- PUT : mettre à jour une ressource
-		- DELETE : supprimer une ressource
+		- POST/GET/PUT/DELETE (CRUD)
 
 - REST s'appuie sur les principes du web pour mettre en œuvre des web services CRUD (ie. Create/Read/Update/Delete)
 
@@ -146,13 +143,13 @@ Notes :
 
 ## JEE et les Web Services
 
-- Le standard WS-* au sein de la plateforme JEE est JAX-WS
+- Le standard WS-* au sein de la plateforme JEE est JAX-WS 2.2 (JSR 224 actuel)
 
 - JAX-WS est le successeur de JAX-RPC qui est aujourd'hui obsolète (API « pruned » dans JEE 6)
 
-- JSR 181 fournit à JAX-WS les annotations Web Services
+- JSR 181 (JSR initial) fournit à JAX-WS les annotations Web Services 
 
-- SAAJ est une spécification/API permettant de manipuler des enveloppes SOAP à un niveau 
+- SAAJ (JSR 66) est une spécification/API permettant de manipuler des enveloppes SOAP à un niveau 
 d'abstraction plus bas que JAX-WS (SAAJ est notamment utilisé dans le cadre des Handlers)
 
 - JAX-RS est l'API Java de référence pour la mise en œuvre d'une architecture REST
@@ -161,16 +158,27 @@ Notes :
 
 
 
-## JAX-WS et JAX-RS : les implémentations
+## JAX-WS et JAX-RS : les implémentations (1/2)
 
 - JAX-WS
 	- Apache CXF
-	- Apache Axis 2
-	- Oracle/Sun Metro (RI)
-
+	- Apache Axis2
+	- Oracle/Weblogic 
+	- Metro in GassFish (Implémentation de référence)
+	- Websphere
 - JAX-RS
 	- Apache CXF
-	- Oracle/Sun Jersey (RI)
+	- Oracle/Sun Jersey (Implémentation de référence)
+	- RestEasy
+	- Restlet
+
+Notes :
+
+
+
+
+## JAX-WS et JAX-RS : les implémentations (1/2)
+
 
 - Ces implémentations apportent des fonctionnalités équivalentes et/ou différentes
 	- Support WS-* (WS-Adressing, WS-Security, ...), Binding XML (JAXB, Aegis, XMLBeans, ...)
@@ -191,6 +199,7 @@ Notes :
 	- Performant
 	- Intégration à Spring
 	- Lien fort avec les projets « Intégration » de la fondation Apache : ActiveMQ, ServiceMix, Camel
+	- peut être utilisé dans un context CDI
 
 Notes :
 
@@ -198,7 +207,7 @@ Notes :
 
 ## JAX-WS
 
-- JAX-WS est née officiellement en 2006
+- JAX-WS est née officiellement en 2006 avec java 6
 	- Adoption par l'industrie
 	- Retour d'expérience
 
@@ -219,9 +228,8 @@ Notes :
 - JAX-WS permet de simplifier le développement de Web Services
 
 - Pour cela, JAX-WS s'appuie sur
-	- JAXB pour le mapping Java/XML
-	- JSR 175 pour les annotations Java
-	- JSR 181 pour les annotations Web Services
+	- JAXB 222 pour le mapping Java/XML
+	- JSR 181 pour les annotations Web Services (Metadata)
 
 - Comparé à JAX-RPC, JAX-WS
 	- Simplifie les développements Web Services
@@ -229,6 +237,7 @@ Notes :
 	- Gère les appels non HTTP
 
 Notes :
+
 
 
 
@@ -484,7 +493,7 @@ Notes :
 ## SOAP : Protocole de communication
 	
 - Versions
-	- 1.1 : mai 2000 – version la plus couramment utilisée
+	- 1.1 : mai 2000
 	- 1.2 : seconde édition en avril 2007
 
 Notes :
@@ -498,19 +507,19 @@ Notes :
 	- Possède une structure propre (ie. enveloppe SOAP)
 	- Est indépendant de la couche transport : HTTP, JMS, ...
 
-- Un message SOAP contient les éléments
-	- Envelope qui en est est la racine
-	- Header qui fournit des informations techniques :
-		- Routage
-		- Adressage …
 
 Notes :
 
 
 
+
 ## SOAP, c'est quoi ? (2/2)
 
-- 
+- Un message SOAP contient les éléments
+	- Envelope qui en est est la racine
+	- Header qui fournit des informations techniques :
+		- Routage
+		- Adressage …
 	- Body qui contient le contenu utile (*ie. payload*) du message :
 		- Requête
 		- Réponse
@@ -555,7 +564,7 @@ Notes :
 	
 - Remarques
 	- SOAP 1.1 et 1.2 sont relativement proches
-	- SOAP 1.2 clarifie les ambiguïtés présentes dans SOAP 1.1; malgré cela, SOAP 1.1 reste majoritaire
+	- SOAP 1.2 clarifie les ambiguïtés présentes dans SOAP 1.1
 
 Notes :
 
@@ -1452,7 +1461,9 @@ Notes :
 
 - Associer l'application Web à un conteneur/serveur JEE
 
-![](ressources/images/05_-_Déploiement-100000000000022A00000170901DF968.png)
+<figure>
+	<image src="ressources/images/05_-_Déploiement-100000000000022A00000170901DF968.png" width="40%"/>
+</figure>
 
 Notes :
 
@@ -1466,7 +1477,10 @@ Notes :
 	- web.xml
 	- cxf-servlet.xml
 
-![](ressources/images/05_-_Déploiement-100000000000021A000000CF78A99015.png)
+<figure>
+	<image src="ressources/images/05_-_Déploiement-100000000000021A000000CF78A99015.png" width="40%"/>
+</figure>	
+
 
 Notes :
 
@@ -1483,15 +1497,15 @@ Notes :
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 				http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-		<display-name>cxf</display-name>
-	<servlet>
-		<servlet-name>cxf</servlet-name>
-		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>cxf</servlet-name>
-		<url-pattern>/services/*</url-pattern>
-	</servlet-mapping>
+<display-name>cxf</display-name>
+<servlet>
+	<servlet-name>cxf</servlet-name>
+	<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>cxf</servlet-name>
+	<url-pattern>/services/*</url-pattern>
+</servlet-mapping>
 </web-app>
 ```
 
@@ -1527,12 +1541,11 @@ Notes :
 ## Créer une application CXF sous Eclipse (6/6)
 
 - Développer les Web Services
-
 - Déployer l'application sur le serveur cible
+- Démarrer et arrê&ter le serveur
+
 ![](ressources/images/05_-_Déploiement-100000000000014900000052F56F5F3E.png)
 
-- Démarrer le serveur
-![](ressources/images/05_-_Déploiement-10000000000001630000004F3F6CC3CD.png)
 
 - Accéder au Web Service via l'adresse du WADL
 http://localhost:8080/[NOM_PROJET]/services/[ENDPOINT_WS]?wsdl
@@ -1551,6 +1564,95 @@ Notes :
 
 
 
+## WSDL : notions avancées (Pièces jointes 1/3)
+
+La gestion des documents dans les messages SOAP se fait par l'activation du protocole MTOM autrement appelé XOP.
+
+Côté Webservice, il faut :
+
+- activer le MTOM (mettre l'anotation *@MTOM*)
+- activer le binding entre SOAP et MTOM 
+(*@BindingType(javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING)*)
+
+Cette première étape consiste uniquement à informer aux utilisateurs qui consomment le webservice, que MTOM est activé.
+
+Notes :
+
+
+
+## WSDL : notions avancées (Pièces jointes 2/3)
+
+Sur l'objet qui va contenir le flux, il faut absolument ajouter les annotations suivantes :
+
+- @XmlAttachmentRef
+- @XmlMimeType("application/octect-stream")
+
+sur l'attribut du pojo.
+
+Lors de la dé/sérialisation, le flux binaire sera automatiquement mappé sur l'attribut.  
+
+Notes :
+
+
+
+
+## WSDL : notions avancées (Pièces jointes 3/3)
+Pojo JAVA
+```
+	private String id;
+	private String nom;
+	private String prenom;
+	@XmlAttachmentRef
+	@XmlMimeType("application/octect-stream")
+	private DataHandler photo;
+```
+
+ex; de réponse pour le client
+```
+setPhoto(new DataHandler(new FileDataSource
+	(new File("C:\\Dev\\test.pdf"))));
+```
+
+Notes :
+
+
+
+
+## WSDL : notions avancées (la sécurité 1/2)
+
+Dans les applications JEE, il y a deux choses qu'il faut garder en tête
+
+- authorisation 
+- habilitation
+
+En règle général, une application est adossée à un LDAP dont la configuration 
+se fait côté serveur et un utilisateur dispose d'une mire de login pour s'authentifier.
+
+Dans un contexte de webservices, la partie authentification va se retrouver dans le header du message. 
+
+Notes :
+
+
+
+## WSDL : notions avancées (la sécurité 2/2)
+
+On trouvera dans le header un bloc (noeud xml ws-security).
+
+L'authentification peut se faire en véhiculant:
+
+- login/password
+- un certificat
+- un token...
+
+Notes :
+
+
+
+
+<!-- .slide: class="page-questions" -->
+
+
+
 # WebServices  REST
 
 
@@ -1558,6 +1660,7 @@ Notes :
 
 
 Notes :
+
 
 
 
