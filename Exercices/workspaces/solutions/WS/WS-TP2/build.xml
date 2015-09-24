@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="WS-TP2" basedir="WebContent" default="wsdl2java">   
+
+   <property name="cxf.home" location ="C:/soa/apache-cxf-2.6.1"/>
+ 
+   <path id="cxf.classpath">
+      <fileset dir="${cxf.home}/lib">
+         <include name="*.jar"/>
+      </fileset>
+   </path>
+       
+   <target name="wsdl2java">
+      <java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
+         <arg value="-impl"/>
+         <arg value="-p"/>
+         <arg value="com.resanet.ws.commentaire"/>
+         <arg value="-d"/>
+         <arg value="${basedir}/../src"/>
+         <arg value="wsdl/commentaire.wsdl"/>
+         <classpath>
+            <path refid="cxf.classpath"/>
+         </classpath>
+      </java>
+   </target>
+
+</project>

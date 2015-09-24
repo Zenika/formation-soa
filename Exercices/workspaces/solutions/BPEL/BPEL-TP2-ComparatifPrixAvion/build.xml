@@ -1,0 +1,25 @@
+<project name="bpelutils" default="deploy" basedir=".">
+	
+
+	<property file="deployment.properties" />
+	
+
+	<property name="server.dir" value="${org.jboss.as.home}/server/${org.jboss.as.config}"/>
+	<property name="conf.dir" value="${server.dir}/conf"/>
+	<property name="deploy.dir" value="${server.dir}/deploy"/>
+	<property name="server.lib.dir" value="${server.dir}/lib"/>
+
+	<property name="sample.jar.name" value="${bpel.process.name}-${bpel.process.version}.jar" />
+	
+	<target name="deploy">
+		<echo>Deploy ${bpel.process.name}-${bpel.process.version}</echo>
+		<delete file="${deploy.dir}/${sample.jar.name}" />
+		<jar basedir="bpelContent" destfile="${deploy.dir}/${sample.jar.name}" />
+	</target> 
+ 
+	<target name="undeploy">
+		<echo>Undeploy ${bpel.process.name}-${bpel.process.version}</echo>
+		<delete file="${deploy.dir}/${sample.jar.name}" />
+	</target>  
+	
+</project>

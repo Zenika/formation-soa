@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:comparatif="http://bpel.resanet.com/comparatif" xmlns:price="http://compagnie.discount/price" xmlns:price_1="http://compagnie.chere/price">
+  <process name="comparatif:ComparatifPrixAvion">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="comparatif:ComparatifPrixAvionService" port="ComparatifPrixAvionPort"/>
+    </provide>
+    <invoke partnerLink="Discount">
+      <service name="price:CieDiscountService" port="CieDiscountPort"/>
+    </invoke>
+    <invoke partnerLink="Chere">
+      <service name="price_1:CieChereService" port="CieCherePort"/>
+    </invoke>
+  </process>
+</deploy>

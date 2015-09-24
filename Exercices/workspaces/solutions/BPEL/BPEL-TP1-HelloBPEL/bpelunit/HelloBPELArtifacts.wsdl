@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<definitions name="HelloBPEL" targetNamespace="http://bpel.resanet.com/hellobpel"
+	xmlns:tns="http://bpel.resanet.com/hellobpel" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+	xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+	<!--
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		TYPE DEFINITION - List of types participating in this BPEL process The
+		BPEL Designer will generate default request and response types but you
+		can define or import any XML Schema type and use them as part of the
+		message types.
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+	<types>
+		<schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+			targetNamespace="http://bpel.resanet.com/hellobpel" xmlns="http://www.w3.org/2001/XMLSchema">
+
+			<element name="HelloBPELRequest">
+				<complexType>
+					<sequence>
+						<element name="input" type="string" />
+					</sequence>
+				</complexType>
+			</element>
+
+			<element name="HelloBPELResponse">
+				<complexType>
+					<sequence>
+						<element name="result" type="string" />
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+	</types>
+
+
+	<!--
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		MESSAGE TYPE DEFINITION - Definition of the message types used as part
+		of the port type defintions
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+	<message name="HelloBPELRequestMessage">
+		<part name="payload" element="tns:HelloBPELRequest" />
+	</message>
+	<message name="HelloBPELResponseMessage">
+		<part name="payload" element="tns:HelloBPELResponse" />
+	</message>
+
+	<!--
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		PORT TYPE DEFINITION - A port type groups a set of operations into a
+		logical service unit.
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+
+	<!-- portType implemented by the HelloBPEL BPEL process -->
+	<portType name="HelloBPEL">
+		<operation name="process">
+			<input message="tns:HelloBPELRequestMessage" />
+			<output message="tns:HelloBPELResponseMessage" />
+		</operation>
+	</portType>
+
+
+	<binding name="HelloBPELBinding" type="tns:HelloBPEL">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="process">
+			<soap:operation soapAction="http://bpel.resanet.com/hellobpel/process" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+
+
+	<service name="HelloBPELService">
+		<port name="HelloBPELPort" binding="tns:HelloBPELBinding">
+			<soap:address location="http://localhost:8080/HelloBPELService" />
+		</port>
+	</service>
+
+
+	<!--
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		PARTNER LINK TYPE DEFINITION
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+	<plnk:partnerLinkType name="HelloBPEL">
+		<plnk:role name="HelloBPELProvider" portType="tns:HelloBPEL" />
+	</plnk:partnerLinkType>
+
+
+</definitions>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:synctimer="http://bpel.resanet.com/synctimer" xmlns:ns1="http://bpel.resanet.com/asynctimer">
+  <process name="synctimer:SynchroneTimer">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="synctimer:SynchroneTimerService" port="SynchroneTimerPort"/>
+    </provide>
+    <provide partnerLink="AsynchroneTimer">
+      <service name="ns1:AsynchroneTimerCallbackService" port="AsynchroneTimerCallbackPort"/>
+    </provide>
+    <invoke partnerLink="AsynchroneTimer">
+      <service name="ns1:AsynchroneTimerService" port="AsynchroneTimerPort"/>
+    </invoke>
+  </process>
+</deploy>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.resanet.partenaires.com/commentaire" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CommentaireService"
+	targetNamespace="http://www.resanet.partenaires.com/commentaire">
+
+	<!-- TYPES -->
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.resanet.partenaires.com/commentaire">
+			<xsd:include schemaLocation="commentaire.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+
+	<!-- MESSAGES -->
+	<wsdl:message name="ajouterRequest">
+		<wsdl:part name="parameters" element="tns:ajouter" />
+	</wsdl:message>
+	<wsdl:message name="listerRequest">
+		<wsdl:part name="parameters" element="tns:lister"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="listerResponse">
+		<wsdl:part name="return" element="tns:listerResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="listerFault">
+		<wsdl:part name="fault" element="tns:commentaireFault"></wsdl:part>
+	</wsdl:message>
+
+	<!-- PORT TYPE -->
+	<wsdl:portType name="commentairePortType">
+
+		<wsdl:operation name="ajouter">
+			<wsdl:input message="tns:ajouterRequest" />
+		</wsdl:operation>
+
+		<wsdl:operation name="lister">
+			<wsdl:input message="tns:listerRequest"></wsdl:input>
+			<wsdl:output message="tns:listerResponse"></wsdl:output>
+			<wsdl:fault name="fault" message="tns:listerFault"></wsdl:fault>
+		</wsdl:operation>
+	</wsdl:portType>	<!-- BINDING -->	<wsdl:binding name="commentaireService_docwrapped_soap11"		type="tns:commentairePortType">		<soap:binding style="document"			transport="http://schemas.xmlsoap.org/soap/http" />		<wsdl:operation name="ajouter">			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="lister">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="fault">
+				<soap:fault use="literal" name="fault" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<!-- SERVICE -->
+	<wsdl:service name="commentaireService">
+		<wsdl:port binding="tns:commentaireService_docwrapped_soap11"
+			name="commentaireServicePort">
+			<soap:address location="TO_DEFINE" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

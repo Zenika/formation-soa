@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:hellobpel="http://bpel.resanet.com/hellobpel">
+  <process name="hellobpel:HelloBPEL">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="hellobpel:HelloBPELService" port="HelloBPELPort"/>
+    </provide>
+  </process>
+</deploy>

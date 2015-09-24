@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:camel="http://camel.apache.org/schema/spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	  http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<camelContext id="camel" streamCache="true"
+		xmlns="http://camel.apache.org/schema/spring">
+		<camel:packageScan>
+			<camel:package>com.resanet</camel:package>
+		</camel:packageScan>
+	</camelContext>
+	
+	
+	<bean id="jms" class="org.apache.camel.component.jms.JmsComponent">
+		<property name="connectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<property name="brokerURL" value="tcp://localhost:61617" />
+			</bean>
+		</property>
+	</bean>
+
+
+<!-- CONFIG POUR ROUTE TX -->
+
+	<bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61617" />
+	</bean>
+	<bean id="jmsTransactionManager"
+		class="org.springframework.jms.connection.JmsTransactionManager">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+	</bean>
+
+	<bean id="required" class="org.apache.camel.spring.spi.SpringTransactionPolicy">
+		<property name="transactionManager" ref="jmsTransactionManager" />
+		<property name="propagationBehaviorName" value="PROPAGATION_MANDATORY" />
+	</bean>
+
+	<bean id="jmsTX" class="org.apache.activemq.camel.component.ActiveMQComponent">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="transacted" value="true" />
+		<property name="transactionManager" ref="jmsTransactionManager" />
+	</bean>
+
+
+
+</beans>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tes:testSuite xmlns:tes="http://www.bpelunit.org/schema/testSuite" xmlns:hel="http://bpel.resanet.com/hellobpel">
+    <tes:name>helloBPEL.bpts</tes:name>
+    <tes:baseURL>http://localhost:8080/HelloBPELService</tes:baseURL>
+    <tes:deployment>
+        <tes:put type="fixed" name="HelloBPEL">
+            <tes:wsdl>HelloBPELArtifacts.wsdl</tes:wsdl>
+        </tes:put>
+    </tes:deployment>
+    <tes:testCases>
+        <tes:testCase name="invoking" basedOn="" abstract="false" vary="false">
+            <tes:clientTrack>
+                <tes:sendReceive service="hel:HelloBPELService" port="HelloBPELPort" operation="process">
+                    <tes:send service="hel:HelloBPELService" port="HelloBPELPort" operation="process" fault="false">
+                        <tes:data>
+                            <hel:HelloBPELRequest>
+                                <hel:input>Raphael</hel:input>
+                            </hel:HelloBPELRequest>
+                        </tes:data>
+                    </tes:send>
+                    <tes:receive service="hel:HelloBPELService" port="HelloBPELPort" operation="process" fault="false">
+                        <tes:condition>
+                            <tes:expression>//hel:result</tes:expression>
+                            <tes:value>'Raphael'</tes:value>
+                        </tes:condition>
+                    </tes:receive>
+                </tes:sendReceive>
+            </tes:clientTrack>
+        </tes:testCase>
+    </tes:testCases>
+</tes:testSuite>
