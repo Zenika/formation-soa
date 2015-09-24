@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.resanet.partenaires.com/commentaire"
+	xmlns:tns="http://www.resanet.partenaires.com/commentaire"
+	elementFormDefault="qualified">
+
+	<element name="ajouter">
+		<!-- A DEFINIR -->
+	</element>
+
+	<element name="lister">
+		<!-- A DEFINIR -->
+	</element>
+
+	<element name="listerResponse">
+		<!-- A DEFINIR -->
+	</element>
+
+	<element name="commentaireFault">
+		<!-- A DEFINIR -->
+	</element>
+</schema>

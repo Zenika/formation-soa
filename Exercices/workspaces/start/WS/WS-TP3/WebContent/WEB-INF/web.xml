@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:javaee="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <javaee:display-name>cxf</javaee:display-name>
+  <javaee:description>cxf</javaee:description>
+  <servlet>
+    <javaee:description>Apache CXF Endpoint</javaee:description>
+    <javaee:display-name>cxf</javaee:display-name>
+    <servlet-name>cxf</servlet-name>
+    <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>cxf</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
+</web-app>
