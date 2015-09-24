@@ -28,6 +28,9 @@ Eclipse Mars (jee edition)
 Apache CXF 3.1.2
 Java 8
 Tomcat 8	
+Liberty 8.5
+SoapUI
+
 	
 ## Les Web Services
 
@@ -128,7 +131,7 @@ Ce webservice sera un module de gestion de personne et comportera deux méthodes
 - affichePersonne retourne quelques informations d'une personne
 - detailPersonne() retourne toutes les informations de la personne
 
-Etapes 
+Etapes 1 : Activer MTOM
 - Créer un projet Web sous Eclipse
 - Configurer un serveur Tomcat sous Eclipse et y ajouter le projet
 - Créer un POJO Java Personne qui comportera les attributs suivant:
@@ -137,19 +140,97 @@ Etapes
 	- age (un numéric)
 	- sexe (un caractère)
 	- photo (un dataHandler)
-- Dans le fichier tomcat-user.xml qui se trouve dans le répertoire conf de TOMCAT, rajouter une ligne permettant de créer un user avec loin et password et un nouveau rôle.
-Seul cet utilisateur pourra utiliser le webservice qui sera à mettre en place.
+
 - Développer un webservice qui mettra à disposition 2 opérations
 	- affichePersonne prend en argument un nom et retourne le nom, prénom, et l'âge de la personne.
 	- detailPersonne prend en argument un nom et retourne tous les attributs de la personne.
 - Construire un jeu de donnée.
 - Activer le protocole MTOM
 - Développer les méthodes 
+- Lancer le serveur Tomcat
+- Tester avec SoapUI. Observez-vous une différence dans le WSDL généré ? Si oui laquelle.
+- Arreter le serveur
+
+Etapes 2 : Sécuriser le point d'accès
 - Sécuriser vos l'URL en utilisant les contraintes de sécurités
 - Une fois fini, publier sur Tomcat et tester avec SOAPUI.
 
-Observez-vous une différence dans le WSDL généré ?
-Si oui laquelle.
+Etapes 3 : Tester les habilitations dans un contexte JEE
+
+Dans un contexte JEE, il faut récupérer le rôle de l'utilisateur connecté. Cela peut se faire en utilisant le contexte de l'application 'WebServiceContext'.
+Dans note cas on utilisera :
+
+```
+	// cas d'utilisation dans le cadre des ejb
+	@Resource
+	private SessionContext sessionContext;
+```
+
+- Télécharger Liberty Profil 8 
+- Modifier le fichier server.xml pour y ajouter les lignes suivantes :
+
+```
+<server>
+	<!-- Enable features -->
+	<featureManager>
+		<feature>jsp-2.2</feature>
+		<feature>ejbLite-3.1</feature>
+		<feature>cdi-1.0</feature>
+		<feature>jaxb-2.2</feature>
+		<feature>jndi-1.0</feature>
+		<feature>jdbc-4.0</feature>
+		<feature>jpa-2.0</feature>
+		<feature>jsf-2.0</feature>
+		<feature>jmsMdb-3.1</feature>
+		<feature>managedBeans-1.0</feature>
+		<feature>wasJmsServer-1.0</feature>
+		<feature>wasJmsClient-1.1</feature>
+		<feature>servlet-3.0</feature>
+		<feature>webProfile-6.0</feature>
+		<feature>beanValidation-1.0</feature>
+		<feature>ldapRegistry-3.0</feature>
+		<feature>appSecurity-2.0</feature>
+		<feature>localConnector-1.0</feature>
+		<feature>appSecurity-2.0</feature>
+		<feature>wsSecurity-1.1</feature>
+		<feature>jaxrs-1.1</feature>
+		<feature>wmqJmsClient-1.1</feature>
+	</featureManager>
+
+	<httpEndpoint host="localhost" httpPort="9081" httpsPort="9443" id="defaultHttpEndpoint"/>
+
+	<basicRegistry id="simple" realm="BasicRegistry">
+		<group name="TEST_WS_ALL">
+			<member name="m"/>
+			<member name="a"/>			
+		</group>
+		<group name="TEST_WS_CONSULT">
+			<member name="m"/>
+			<member name="c"/>
+			<member name="w"/>			
+		</group>
+		<group name="TEST_WS_WRITE">
+			<member name="m"/>
+			<member name="w"/>			
+		</group>
+		<user name="a" password="a"/>
+		<user name="c" password="c"/>
+		<user name="w" password="w"/>		
+		<user name="m" password="m"/>				
+		<user name="z" password="z"/>						
+	</basicRegistry>
+
+	<applicationMonitor updateTrigger="mbean"/>
+<server>	
+```
+
+- Déployer l'ear "prios-ws-TP4-ear.ear" qui se trouve dans le répertoire TP2Bonus
+en rajoutant la ligne suivante en modifiant l'attribut location:
+```    
+	<enterpriseApplication id="prios-ws-TP4-ear" location="XXXXXXXXXX/prios-ws-TP4-ear.ear" name="prios-ws-TP4-ear"/>
+```
+
+- tester avec SOAPUI
 
 
 
@@ -161,7 +242,7 @@ L'objectif de ce TP est mettre en oeuvre un service de gestion de voyages de typ
 
 ### Installation du service
 
-- Importer le projet <TP_WS_REST>dans Eclipse
+- Importer le projet <WS-T3> dans Eclipse
 - Le service de gestion des voyages fournit les opérations suivantes
 	- créer un voyage
 	- lire un voyage
@@ -169,7 +250,9 @@ L'objectif de ce TP est mettre en oeuvre un service de gestion de voyages de typ
 	- mettre à jour un voyage
 	- supprimer un voyage
 - Compléter la configuration CXF (ie. cxf-servlet.xml) et annoter l'ensemble des méthodes afin de fournir un service REST
-- Tester le service à l'aide de SoapUI3.Service de recherche
+- Tester le service à l'aide de SoapUI
+
+### Service de recherche
 
 - Modifier l'opération "lister les voyages" afin qu'elle puisse prendre en charge un paramètre permettant de chercher les voyages ayant un libellé donné
 - Tester
@@ -287,103 +370,4 @@ Implémentation des EIP dans Camel
 - Implémenter l'EIP Message Translator
 - On souhaite ajouter « World ! » au message d'entrée « Hello »
 - On injectera directement les messages de tests dans l'implémentation de l'EIP, et on affichera à l'écran les messages de sorties.
-
-## BPEL
-
-## TP10 –Installation du moteur BPEL et de l’IDE
-
-### Objectifs
-
-- Installer l'environnement de développement.
-- Prise en main de l'IDE.
-
-### Mise en œuvre
-
-- Vérification de l’installationd’unJDK 6.0
-- Vérification de l’installation deAnt
-- Installation de Eclipse 3.6 (Helios) maximum
-- Installation des Jboss tools via le site update d'Eclipse
-
-- http://download.jboss.org/jbosstools/updates/stable/indigo
-- Sélectionner uniquement les éditeurs SOA
-
-- Installation Jboss AS 5.1.0.GA JDK6
-- Installation Jboss Riftsaw 2.0.0.Final
-
-- Verification /édition du fichier de configuration
-	- install/deployment.properties (cf README)
-	
-## TP10 – Hello BPEL !
-
-### Objectifs
-
-Développer un premier processus BPEL
-
-- Débuter avec l'IDE
-- Manipulation du langage
-- Assimilation des concepts élémentaires
-
-### Consignes
-
-- Créer un nouveau processus BPEL synchrone nomméHelloBPEL
-	- new BPEL project
-	- new BPEL process file (à créer dans bpelContent)
-	- new Apache ODE deployment descriptor
-- Définir l'interface concrète dans le WSDL (Binding, Port, Service)
-- Le processus doit retourner la même valeur que celle fournie en entrée du processus
-- Déployer le processus
-
-### Mise en œuvre
-
-- Implémentation du processus BPEL et test avec l'utilitaire SoapUI
-
-## TP11 – Comparateur detarifs debillets d’avion
-
-### Objectifs
-
-Comprendre la puissance du langage BPEL.
-
-- Manipulation de données
-- Utilisation des briques de base
-
-Comprendre les interactions entre les webservices
-
-### Consignes
-Développer un processus BPEL synchrone, qui appelle 2 webservices partenaires (les WSDL des services sont fournis) :
-
-- CieDiscountService
-- CieChereService Le processus doit ensuite sélectionner le prix le moins élevé 
-et le retourner dans la réponse accompagné du nom de la compagnie (DISCOUNT ou CHERE).
-
-Flux métier
-
-![](ressources/images/bpel.png)
-
-InterfaceOn fournit 3 WSDL
-
-- Comparatif Prix Avion Artifacts.wsdl
-- CompagnieChere.wsdl
-- Compagnie Discount.wsdl
-
-### Mise en œuvre
-Implémenter le processus de choix de prix, et utiliser SoapUI pour simuler les partenaires.
-
-## TP11 – Bonus : Processus durables
-
-### Objectifs
-Mettre en place des processus synchrones et asynchrones communiquant entre eux
-
-### Consignes
-
-- Créer un processus asynchrone qui possède untimerarrivant à expiration au bout de 5 secondes
-- Le processus retourne la valeur 'OK'
-- Créer un processus synchrone appelant le processus asynchrone
-- Vérifier que la réponse du processus synchrone arrive au bout de 5 secondes
-
-### Réaliser un design conforme
-
-- Le design du processus de la partie 1 a un problème de conception.
-- Que devons-nous prévoir afin qu'il n'y ait pas de problème?
-- Implémenter la solution.
-
 
