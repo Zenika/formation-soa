@@ -305,7 +305,9 @@ Utilisation du standard de messaging AMQP
 
 - Installer le moteur ERLANG
 - Installer le broker RabbitMQ
-- Lancer et verifier que tout fonctionne3.Producer / consumer
+- Lancer et verifier que tout fonctionne
+
+### Producer / consumer
 
 - Développer un producer AMQP
 - Développer un consumer AMQP

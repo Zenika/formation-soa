@@ -1,12 +1,20 @@
 package com.resanet;
 
-import org.apache.camel.spring.Main;
+import org.apache.camel.CamelContext;
+import org.apache.camel.impl.DefaultCamelContext;
+
+import com.resanet.routes.FileToFileRoute;
 
 public class Driver {
 
 	public static void main(String[] args) throws Exception {
-		Main m = new Main();
-		m.enableHangupSupport();
-		m.run();
+
+		CamelContext contextCamel = new DefaultCamelContext();
+		contextCamel.addRoutes(new FileToFileRoute());
+		
+		contextCamel.start();
+		
+		Thread.sleep(2000);
+		contextCamel.stop();
 	}
 }

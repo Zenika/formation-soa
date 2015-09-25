@@ -1,11 +1,15 @@
 package com.resanet.routes;
 
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.ProcessorDefinition;
 
-public class FileToFileRoute extends RouteBuilder {
+import com.resanet.CustomRouteBuilder;
+
+public class FileToFileRoute extends CustomRouteBuilder {
 
 	@Override
-	public void configure() throws Exception {
-		from("file:///Users/raphael/camel/in2?delay=10000").to("file:///Users/raphael/camel/out2");
+	protected ProcessorDefinition composeRoute() throws Exception {
+		ProcessorDefinition composeRoute  = null;
+		composeRoute = from("file://in?delay=10000").to("file://out");
+		return composeRoute;
 	}
 }
