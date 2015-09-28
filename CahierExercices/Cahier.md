@@ -166,71 +166,108 @@ Dans note cas on utilisera :
 	private SessionContext sessionContext;
 ```
 
-- Télécharger Liberty Profil 8 
+- Télécharger Liberty Profil 8 (la dernière version peut convenir) 
 - Modifier le fichier server.xml pour y ajouter les lignes suivantes :
 
 ```
-<server>
-	<!-- Enable features -->
+<server description="new server">
+
 	<featureManager>
-		<feature>jsp-2.2</feature>
-		<feature>ejbLite-3.1</feature>
-		<feature>cdi-1.0</feature>
-		<feature>jaxb-2.2</feature>
+
+		<feature>beanValidation-1.1</feature>
+		<feature>cdi-1.2</feature>
+		<feature>ejbLite-3.2</feature>
+		<feature>el-3.0</feature>
+		<feature>jaxrs-2.0</feature>
+		<feature>jaxrsClient-2.0</feature>
+		<feature>jdbc-4.1</feature>
 		<feature>jndi-1.0</feature>
-		<feature>jdbc-4.0</feature>
-		<feature>jpa-2.0</feature>
-		<feature>jsf-2.0</feature>
-		<feature>jmsMdb-3.1</feature>
+		<feature>jpa-2.1</feature>
+		<feature>jsf-2.2</feature>
+		<feature>jsonp-1.0</feature>
+		<feature>jsp-2.3</feature>
 		<feature>managedBeans-1.0</feature>
+		<feature>servlet-3.1</feature>
+		<feature>webProfile-7.0</feature>
+
+		<feature>websocket-1.1</feature>
+
+		<feature>concurrent-1.0</feature>
+		<feature>ejb-3.2</feature>
+		<feature>ejbHome-3.2</feature>
+		<feature>ejbPersistentTimer-3.2</feature>
+		<feature>ejbRemote-3.2</feature>
+		<feature>j2eeManagement-1.1</feature>
+		<feature>jacc-1.5</feature>
+		<feature>jaspic-1.1</feature>
+		<feature>javaee-7.0</feature>
+		<feature>javaMail-1.5</feature>
+		<feature>jca-1.7</feature>
+		<feature>jcaInboundSecurity-1.0</feature>
+
+		<feature>mdb-3.2</feature>
+		<feature>wasJmsClient-2.0</feature>
+		<feature>wasJmsSecurity-1.0</feature>
 		<feature>wasJmsServer-1.0</feature>
-		<feature>wasJmsClient-1.1</feature>
-		<feature>servlet-3.0</feature>
-		<feature>webProfile-6.0</feature>
-		<feature>beanValidation-1.0</feature>
-		<feature>ldapRegistry-3.0</feature>
-		<feature>appSecurity-2.0</feature>
+
+
 		<feature>localConnector-1.0</feature>
-		<feature>appSecurity-2.0</feature>
-		<feature>wsSecurity-1.1</feature>
-		<feature>jaxrs-1.1</feature>
-		<feature>wmqJmsClient-1.1</feature>
 	</featureManager>
 
-	<httpEndpoint host="localhost" httpPort="9081" httpsPort="9443" id="defaultHttpEndpoint"/>
 
-	<basicRegistry id="simple" realm="BasicRegistry">
+	<!-- To access this server from a remote client add a host attribute to 
+		the following element, e.g. host="*" -->
+	<httpEndpoint httpPort="9080" httpsPort="9443"
+		id="defaultHttpEndpoint" />
+
+
+	<applicationMonitor updateTrigger="mbean" />
+
+	<keyStore id="defaultKeyStore" password="vickrame" />
+
+	<basicRegistry id="basic" realm="BasicRealm">
+		<group id="UtilisateurConsultationRole" name="UtilisateurConsultationRole" />
+		<user name="vickrame" password="vickrame" />
+
 		<group name="TEST_WS_ALL">
-			<member name="m"/>
-			<member name="a"/>			
+			<member name="m" />
+			<member name="a" />
 		</group>
 		<group name="TEST_WS_CONSULT">
-			<member name="m"/>
-			<member name="c"/>
-			<member name="w"/>			
+			<member name="m" />
+			<member name="c" />
+			<member name="w" />
 		</group>
 		<group name="TEST_WS_WRITE">
-			<member name="m"/>
-			<member name="w"/>			
+			<member name="m" />
+			<member name="w" />
 		</group>
-		<user name="a" password="a"/>
-		<user name="c" password="c"/>
-		<user name="w" password="w"/>		
-		<user name="m" password="m"/>				
-		<user name="z" password="z"/>						
+		<user name="a" password="a" />
+		<user name="c" password="c" />
+		<user name="w" password="w" />
+		<user name="m" password="m" />
+		<user name="z" password="z" />
 	</basicRegistry>
-
-	<applicationMonitor updateTrigger="mbean"/>
-<server>	
+	
+	
+</server>
 ```
 
 - Déployer l'ear "prios-ws-TP4-ear.ear" qui se trouve dans le répertoire TP2Bonus
-en rajoutant la ligne suivante en modifiant l'attribut location:
+en rajoutant la ligne suivante en modifiant l'attribut location (modifier l'emplacement) avant le tag </server>:
+
 ```    
-	<enterpriseApplication id="prios-ws-TP4-ear" location="XXXXXXXXXX/prios-ws-TP4-ear.ear" name="prios-ws-TP4-ear"/>
+    <enterpriseApplication id="prios-ws-TP4-ear" location="C:/Dev/workspace/formation-soa/Exercices/workspaces/start\WS/TP2Bonus/prios-ws-TP4-ear.ear" name="prios-ws-TP4-ear"/>
 ```
 
-- tester avec SOAPUI
+- Tester avec chrome l'url suivante : http://localhost:9080/prios-ws-TP4-web/ReservationImplService?wsdl (par défaut liberty démarre sur le port 9080) 
+	- Déterminer quel est le profil utilisé ?
+	- Déterminer les méthodes qui vous semblent être sécurisées ?
+
+- tester avec SOAPUI tous les services
+	- tester la méthode estReserve, detailPERsonne avec et sans entêtes sur pour la sécurité et observer (Utilisateur possible c,w).
+
+(Attention sous liberty il faut mettre le tag "mustUnderstand" a false)
 
 
 
@@ -373,3 +410,15 @@ Implémentation des EIP dans Camel
 - On souhaite ajouter « World ! » au message d'entrée « Hello »
 - On injectera directement les messages de tests dans l'implémentation de l'EIP, et on affichera à l'écran les messages de sorties.
 
+## TP 10 
+
+### Pré requis
+
+- Installer MongoDB 
+
+### Etapes :
+
+- Implémenter une route qui lit un répertoire contenant des fichiers CSV pour alimenter un mongoDB.  
+Une ligne sera composé du nom, prénom, age, profession 
+- Créer un pojo JAVA qui correspond à une ligne du fichier CSV
+- Requêter la base mongoDB pour vérifier l'alimentation

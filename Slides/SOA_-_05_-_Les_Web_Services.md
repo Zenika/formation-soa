@@ -1652,6 +1652,12 @@ Notes :
 <!-- .slide: class="page-questions" -->
 
 
+<!-- .slide: class="page-tp2" -->
+TP Bonus
+
+
+
+
 
 # WebServices  REST
 

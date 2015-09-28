@@ -1438,6 +1438,77 @@ Notes :
 
 
 
+## Monitoring des routes Camel.
+
+Il existe plusieurs outils pour monitorer les routes Camel.
+
+- Hawtio
+- RHQ
+- CamelWatch
+
+
+Notes : 
+
+
+
+
+## Hawio
+
+Dispose de plusieurs plugins:
+
+- ActiveMQ
+- RabbitMQ
+- Camel
+
+S'interface sur les serveurs Tomcat, JBoss, ...
+
+Communauté vaste :
+- Github
+- StackOverflow
+- Tracker issue
+
+ 
+
+Notes :
+
+
+
+
+## - RHQ
+
+Solution pour le monitoring des applications d'entreprise, issue du projet JBoss ON.
+Fonctionnant comme un agent.
+Il supporte les serveurs suivants JBOSS, et Tomcat.
+
+Un systeme de plugin a été mis en place pour les autres serveurs.
+http://veithen.github.io/2012/10/07/rhq-websphere-plug-in-released.html (websphere)
+https://support.hyperic.com/display/hyperforge/Configure+HQ+Agent+to+Monitor+WebLogic+Server (websphere)
+
+Communauté vaste :
+- Github
+- 2 mailings list (users et developers)
+- StackOverflow
+- Tracker issue
+
+
+Notes :
+
+
+
+
+## CamelWatch
+
+Se base comme ses concurrents sur JMX.
+Permet d'ouvrir une console web pour monitorer les routes.
+
+Attention le produit semble ne plus être maintenu (dernier commit 2014).
+
+
+Notes :
+
+
+
+
 <!-- .slide: class="page-questions" -->
 
 
