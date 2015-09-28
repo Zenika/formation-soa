@@ -8,21 +8,18 @@
 - 1.Les Web Services
 	- TP1 – Développer un premier Web Service
 	- TP2 – Développer un Web Service en "WSDL-First"
+	- TP2 Bonus - Tester la partie MTOM et Ws-security
 	- TP3 – REST
 - 2.Les MOM
 	- TP4 – Prise en main du broker ActiveMQ
 	- TP5 – Client JMS Java
 	- TP6 – Bonus : AMQP
 - 3.Les ESB
-	- TP5 – Prise en main du framework Camel
-	- TP6 – Aller plus loin avec Camel9ES
-	- TP7 – Les EIP avec Camel
-- 4.BPEL
-	- TP8 – Installation du moteur BPEL et de l’IDE
-	- TP9 – Hello BPEL !
-	- TP10 – Comparateur de tarifs de billets d’avion
-	- TP11 – Bonus : Processus durables14
-
+	- TP7 – Prise en main du framework Camel
+	- TP8 – Aller plus loin avec Camel
+	- TP9 – Les EIP avec Camel
+	- TP10 – Bonus
+	
 ## Configuration pour les TPs
 Eclipse Mars (jee edition)
 Apache CXF 3.1.2
@@ -30,7 +27,8 @@ Java 8
 Tomcat 8	
 Liberty 8.5
 SoapUI
-
+MongoDB
+un client Mongo (RobotMongo par exemple)
 	
 ## Les Web Services
 
