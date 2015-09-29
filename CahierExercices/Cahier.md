@@ -21,14 +21,16 @@
 	- TP10 – Bonus
 	
 ## Configuration pour les TPs
-Eclipse Mars (jee edition)
-Apache CXF 3.1.2
-Java 8
-Tomcat 8	
-Liberty 8.5
-SoapUI
-MongoDB
-un client Mongo (RobotMongo par exemple)
+
+- Eclipse Mars (jee edition)
+- Apache CXF 3.1.2
+- Java 8
+- Tomcat 8	
+- Liberty 8.5
+- SoapUI
+- MongoDB
+- un client Mongo (RobotMongo par exemple)
+	
 	
 ## Les Web Services
 
@@ -84,8 +86,8 @@ d'un partenaire fictif comme paramètre d'entrée (ie. remplacer le caractère?)
 - Créer une classe com.resanet.ws.ConsumerAccueil contenant le code suivant :
 
 ```
-URL wsdlURL =newURL("http://localhost:9000/accueil?wsdl");
-QName serviceName =new QName("http://ws.resanet.com/","AccueilServiceImplService");
+URL wsdlURL =new URL("http://localhost:9000/accueil?wsdl");
+QName serviceName = new QName("http://ws.resanet.com/","AccueilServiceImplService");
 Service service = Service.create(wsdlURL, serviceName);
 AccueilService client = service.getPort(AccueilService.class);
 System.out.println(client.afficherMessage("Air France"));
