@@ -2,9 +2,7 @@
 
 <!-- .slide: class="page-title" -->
 
-
 Notes :
-
 
 
 
@@ -42,7 +40,6 @@ Notes :
 
 
 
-
 ## Communication entre des systèmes
 
 - L'ESB permet d'adresser cette problématique
@@ -50,7 +47,6 @@ Notes :
 <figure>
     <img src="ressources/images/SOA_30_mediateur.png" width="75%"/>
 </figure>
-
 
 Notes :
 
@@ -65,7 +61,6 @@ Notes :
 	- exemples : RPC, RMI
 
 Notes :
-
 
 
 
@@ -85,8 +80,6 @@ Notes :
 
 
 
-
-
 ## Distributivité
 
 - L'ESB est hautement distribué par définition
@@ -97,9 +90,7 @@ Notes :
     <img src="ressources/images/SOA_31_distributivite.png" width="60%"/>
 </figure>
 
-
 Notes :
-
 
 
 
@@ -133,7 +124,6 @@ Notes :
 
 
 
-
 ## Connectivité
 
 - L'ESB est capable de faire communiquer des applications utilisant des protocoles différents via les adaptateurs (ou connecteurs)
@@ -145,7 +135,6 @@ Notes :
 ![](ressources/images/SOA_33_connectivite_protocole.png)
 
 Notes :
-
 
 
 
@@ -165,7 +154,6 @@ Notes :
 
 
 
-
 ## Transformation et enrichissement
 
 - Enrichissement
@@ -173,7 +161,6 @@ Notes :
 	- Ajouter des données au message
 	- Collecte de données d'un système tiers (JDBC, Webservices, etc.)
 
-	
 <figure>
     <img src="ressources/images/SOA_34_xslt_enrichissement.png" width="60%"/>
 </figure>	
@@ -200,8 +187,6 @@ Notes :
 
 
 
-
-
 ## intégrité
 
 - Un ESB doit être fiable
@@ -218,7 +203,6 @@ Notes :
 
 
 
-
 ## Sécurité
 
 - L'ESB est au cœur du SI, il est donc capital de le protéger
@@ -226,8 +210,6 @@ Notes :
 - Sécuriser les échanges entres applications
 - Sécuriser les accès des utilisateurs
 	
-	
-
 <figure style="position: absolute; bottom: 50px; right: 10px;">
     <img src="ressources/images/verrouillage.png" width="60%"/>
 </figure>	
@@ -240,9 +222,7 @@ Notes :
 
 <!-- .slide: class="page-title" -->
 
-
 Notes :
-
 
 
 
@@ -256,7 +236,6 @@ Notes :
 	- d'intégration des applications
 	- Architecture orientée messages
 
-
 <figure style="position: absolute; bottom: 300px; right: 5px;">
     <img src="ressources/images/SOA_36_eip.png" width="60%"/>
 </figure>	
@@ -265,10 +244,7 @@ Notes :
     <img src="ressources/images/SOA_36_eip_2.png" width="80%"/>
 </figure>	
 
-
 Notes :
-
-
 
 
 
@@ -284,8 +260,6 @@ Notes :
 - Les 50 EIP permettent de modéliser des solutions à l'ensemble des problématiques d'intégration au travers d'un langage graphique commun
 
 Notes :
-
-
 
 
 ## Introduction aux EIP de routage
@@ -304,7 +278,6 @@ Notes :
 
 
 
-
 ## Le Routage
 
 - Un des plus gros défi pour un ESB est le routage
@@ -317,7 +290,6 @@ Notes :
 	- Endpoint logique (direct:destination, endpoint interne JBI)
 
 Notes :
-
 
 
 
@@ -338,11 +310,9 @@ Notes :
 
 ## Introduction aux EIP de routage
 
-
 ![](ressources/images/SOA_37_pattern.PNG)
 
 Notes :
-
 
 
 
@@ -355,7 +325,6 @@ Notes :
 	- Segmenter des messages ennparties
 
 Notes :
-
 
 
 
@@ -373,8 +342,6 @@ Notes :
 
 
 
-
-
 ## Les EIP – Routage de messages
 
 - Régulateur de débit
@@ -384,8 +351,6 @@ Notes :
 - Répétition
 
 Notes :
-
-
 
 
 
@@ -404,9 +369,7 @@ Notes :
 	- Existence de champs
 	- Valeur de champs
 
-
 Notes :
-
 
 
 
@@ -442,7 +405,6 @@ Notes :
 
 
 
-
 ## EIP – Recipient List
 
 - Recipient List
@@ -452,7 +414,6 @@ Notes :
 	- Les destinations sont calculées à partir du message d'entrée
 
 Notes :
-
 
 
 
@@ -515,7 +476,6 @@ Notes :
 		- Comment réunit-on les messages entrants en un seul message ?
 
 Notes :
-
 
 
 
@@ -582,7 +542,6 @@ Notes :
 
 
 
-
 ## EIP – Process Manager
 
 - Process Manager
@@ -591,7 +550,6 @@ Notes :
 ![](ressources/images/SOA_45_process_manager.png)
 
 Notes :
-
 
 
 
@@ -610,8 +568,6 @@ Notes :
 
 
 
-
-
 ## EIP – Process Manager
 
 - Les outils de BPM qui supportent le langage BPEL sont de vrais logiciels à part entière
@@ -625,15 +581,11 @@ Notes :
 
 
 
-
 # Un exemple d’ESB
-
 
 <!-- .slide: class="page-title" -->
 
-
 Notes :
-
 
 
 
@@ -675,7 +627,6 @@ Notes :
 
 
 
-
 ## Apache ServiceMix
 
 - Conteneur de services léger
@@ -693,7 +644,6 @@ Notes :
 <figure style="position: absolute; bottom: 400px; right: 10px;">
     <img src="ressources/images/SOA_46_service_mix.png" style="margin: auto;"/>
 </figure>	
-
 
 Notes :
 
@@ -744,7 +694,6 @@ Notes :
 
 
 
-
 ## Apache ActiveMQ
 
 - Serveur de messages
@@ -760,7 +709,6 @@ Notes :
 - Supervision
 	- Via la console
 	- Via JMX
-
 
 <figure style="position: absolute; bottom: 450px; right: 10px;">
     <img src="ressources/images/SOA_47_active_mq.png" style="margin: auto;"/>
@@ -814,7 +762,6 @@ Notes :
 	- Peut être intégré
 		- ServiceMix
 		- ActiveMQ
-
 
 Notes :
 
@@ -873,9 +820,7 @@ xmlns="http://camel.apache.org/schema/spring">
 </beans>
 ```
 
-
 Notes :
-
 
 
 
@@ -988,9 +933,7 @@ Notes :
 
 # Les EIP avec camel
 
-
 <!-- .slide: class="page-title" -->
-
 
 Notes :
 
@@ -1020,9 +963,7 @@ from("seda:cbr")
 .end();
 ```
 
-
 Notes :
-
 
 
 
@@ -1043,7 +984,6 @@ Namespaces ns = new Namespaces("ns","http://esb.resanet.com");
 Predicate price = ns.xpath("/ns:order/ns:price/text()='10'");
 ```
 
-
 Notes :
 
 
@@ -1052,7 +992,6 @@ Notes :
 
 - La classe *PredicateBuilder* offre les fonctions élémentaires
 	- and, or, not, isLessThan, isNull, regex, etc.
-
 
 Construction de prédicats
 	
@@ -1066,7 +1005,6 @@ Predicate body =body().contains("esb");
 Predicate priceOrderType =and(price,orderType);
 Predicate all =and(body,priceOrderType);
 ```
-
 
 Notes :
 
@@ -1092,9 +1030,7 @@ from("seda:rlsinp")
 .to("seda:rlsout1","seda:rlsout2");
 ```
 
-
 Notes :
-
 
 
 
@@ -1116,7 +1052,6 @@ Notes :
 
 
 
-
 ## Camel – Les expressions
 
 - Permet d'évaluer des expressions sur un échange de messages (utilisé par les Prédicats)
@@ -1128,9 +1063,7 @@ Notes :
 ...python("requete.headers['user']")...
 ```
 
-
 Notes :
-
 
 
 
@@ -1161,9 +1094,7 @@ Notes :
 
 # La connectivité avec Camel
 
-
 <!-- .slide: class="page-title" -->
-
 
 Notes :
 
@@ -1181,8 +1112,6 @@ Notes :
 
 
 
-
-
 ## Les composants de Camel
 
 - Camel propose une offre complète
@@ -1192,8 +1121,6 @@ Notes :
 		- http://camel.apache.org/component.html
 
 Notes :
-
-
 
 
 
@@ -1220,12 +1147,9 @@ Notes :
 
 
 
-
 ## Camel – Le composant JMS
 
 - Syntaxe
-
-
 ```
 jms:[queue:|topic:].destinationName[?options]
 ```
@@ -1238,12 +1162,9 @@ jms:[queue:|topic:].destinationName[?options]
 
 ```
 from("jms:queue.in").to("jms:queue.out");
-
 ```
 
 Notes :
-
-
 
 
 
@@ -1254,7 +1175,6 @@ Notes :
 ```
 monJMS:[queue:|topic:].destinationName[?options]
 ```
-
 
 - Et utiliser le provider configuré
 	- Pour Apache ActiveMQ, utiliser le composant standard fourni avec la distributionactivemq
@@ -1269,9 +1189,7 @@ monJMS:[queue:|topic:].destinationName[?options]
 </bean></property></bean>
 ```
 
-
 Notes :
-
 
 
 
@@ -1279,7 +1197,6 @@ Notes :
 
 - Le composant camel-jetty
 	- Fonctionnalités en mode consumer et producer
-
 ```
 jetty:http://hostname[:port][/resourceUri][?options]
 ```
@@ -1292,14 +1209,12 @@ jetty:http://hostname[:port][/resourceUri][?options]
 
 - Authentification BASIC HTTP, support SSL
 
-
 Exemple:
 ```
 jetty:https://0.0.0.0/myapp/myservice/
 ```
 
 Notes :
-
 
 
 
@@ -1329,20 +1244,15 @@ Notes :
 
 
 
-
 <!-- .slide: class="page-tp7" -->
-
 
 Notes :
 
 
 
-
 # Transformation avec camel
 
-
 <!-- .slide: class="page-title" -->
-
 
 Notes :
 
@@ -1356,7 +1266,6 @@ Notes :
 ![](ressources/images/SOA_48_transformation.png)
 
 Notes :
-
 
 
 
@@ -1374,7 +1283,6 @@ Notes :
 
 
 
-
 ## Camel – Message Translator
 
 - Message Translator en Camel
@@ -1388,7 +1296,6 @@ transform(Expression exp)
 ```
 
 Notes :
-
 
 
 
@@ -1446,7 +1353,6 @@ Il existe plusieurs outils pour monitorer les routes Camel.
 - RHQ
 - CamelWatch
 
-
 Notes : 
 
 
@@ -1467,29 +1373,33 @@ Communauté vaste :
 - StackOverflow
 - Tracker issue
 
- 
-
 Notes :
-
 
 
 
 ## - RHQ
 
-Solution pour le monitoring des applications d'entreprise, issue du projet JBoss ON.
-Fonctionnant comme un agent.
-Il supporte les serveurs suivants JBOSS, et Tomcat.
+- Solution pour le monitoring des applications d'entreprise, issue du projet JBoss ON.
+- Fonctionnant comme un agent.
+- Il supporte les serveurs suivants JBOSS, et Tomcat.
 
 Un systeme de plugin a été mis en place pour les autres serveurs.
-http://veithen.github.io/2012/10/07/rhq-websphere-plug-in-released.html (websphere)
-https://support.hyperic.com/display/hyperforge/Configure+HQ+Agent+to+Monitor+WebLogic+Server (websphere)
+
+- http://veithen.github.io/2012/10/07/rhq-websphere-plug-in-released.html (websphere)
+- https://support.hyperic.com/display/hyperforge/Configure+HQ+Agent+to+Monitor+WebLogic+Server (websphere)
+
+Notes :
+
+
+
+## - RHQ
 
 Communauté vaste :
+
 - Github
 - 2 mailings list (users et developers)
 - StackOverflow
 - Tracker issue
-
 
 Notes :
 
@@ -1502,7 +1412,6 @@ Se base comme ses concurrents sur JMX.
 Permet d'ouvrir une console web pour monitorer les routes.
 
 Attention le produit semble ne plus être maintenu (dernier commit 2014).
-
 
 Notes :
 

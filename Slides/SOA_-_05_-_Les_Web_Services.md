@@ -166,19 +166,18 @@ Notes :
 	- Oracle/Weblogic 
 	- Metro in GassFish (Implémentation de référence)
 	- Websphere
-- JAX-RS
-	- Apache CXF
-	- Oracle/Sun Jersey (Implémentation de référence)
-	- RestEasy
-	- Restlet
 
 Notes :
 
 
 
+## JAX-WS et JAX-RS : les implémentations (2/2)
 
-## JAX-WS et JAX-RS : les implémentations (1/2)
-
+- JAX-RS
+	- Apache CXF
+	- Oracle/Sun Jersey (Implémentation de référence)
+	- RestEasy
+	- Restlet
 
 - Ces implémentations apportent des fonctionnalités équivalentes et/ou différentes
 	- Support WS-* (WS-Adressing, WS-Security, ...), Binding XML (JAXB, Aegis, XMLBeans, ...)
@@ -223,6 +222,7 @@ Notes :
 
 
 
+
 ## JAX-WS en détail
 
 - JAX-WS permet de simplifier le développement de Web Services
@@ -240,13 +240,12 @@ Notes :
 
 
 
-
 #Développer un Web Service SOAP en Java
 
 <!-- .slide: class="page-title" -->
 
-
 Notes :
+
 
 
 
@@ -286,6 +285,7 @@ Notes :
 
 
 ## Créer l'interface Java (SEI)
+
 ```
 package com.resanet.ws;
 
@@ -298,7 +298,6 @@ import javax.jws.WebService;
 targetNamespace ="http://www.resanet.partenaires.com")
 
 public interface VoyageService {
-
 @WebMethod(operationName ="verifierDisponibilite")
 @WebResult(name ="disponibilite")
 public boolean estDisponible(@WebParam(name ="reference")String ref);
@@ -311,16 +310,17 @@ Notes :
 
 ## Créer l'interface Java (SEI)
 
-
 - SEI = Contrat du Web Service
 - Toutes les méthodes de l'interface sont exposées
-
 
 Notes :
 
 
 
 ## Implémenter le service
+
+- Implémente les opérations décrites par le SEI
+- L'implémentation utilise la même annotation *@WebService que le SEI*
 
 ```
 package com.resanet.ws;
@@ -335,11 +335,6 @@ public class VoyageServiceImpl implements VoyageService {
 public boolean estDisponible(String ref) {…}
 }
 ```
-
-
-- Implémente les opérations décrites par le SEI
-- L'implémentation utilise la même annotation *@WebService que le SEI*
-
 
 Notes :
 
@@ -410,7 +405,6 @@ Notes :
 
 ![](ressources/images/SOA_14_voyage_wsdl.png)
 
-
 Notes :
 
 
@@ -451,7 +445,6 @@ Notes :
 ## Format de la requête/réponse SOAP
 
 ![](ressources/images/SOA_15_appel_wsdl.png)
-
 
 Notes :
 
@@ -507,7 +500,6 @@ Notes :
 	- Possède une structure propre (ie. enveloppe SOAP)
 	- Est indépendant de la couche transport : HTTP, JMS, ...
 
-
 Notes :
 
 
@@ -532,7 +524,6 @@ Notes :
 ## L'enveloppe SOAP
 
 ![](ressources/images/SOA_16_structure_enveloppe_soap.PNG)
-
 
 Notes :
 
@@ -679,7 +670,6 @@ Notes :
 
 
 
-
 ## Mapping Exception/Fault par défaut
 
 ```
@@ -739,13 +729,11 @@ Notes :
 
 
 
-
 ## Structure d'un contrat
 
 ![](ressources/images/SOA_18_definition_wsdl.png)
 
 Notes :
-
 
 
 
@@ -758,7 +746,6 @@ Notes :
 	- Word
 	- Mail
 	- XML
-
 
 - Démarche SOA s'appuyer sur les standards
 	- Standard contrat WS = WSDL
@@ -780,9 +767,7 @@ Notes :
 	- En mars 2001 (soit après SOAP)
 	- Dernière version : 2.0 (non prise en charge par CXF)
 
-
 Notes :
-
 
 
 
@@ -794,7 +779,6 @@ Notes :
 
 
 
-
 ## WSDL : définition abstraite/concrète
 
 - Définition abstraite (ou logique)
@@ -802,7 +786,6 @@ Notes :
 	- Opérations possibles
 		- Paramètres
 		- Erreurs
-
 		
 Notes :
 
@@ -817,8 +800,8 @@ Notes :
 		- Type de communication
 	- Emplacement du service
 		- Adresse réseau
-Notes :
 
+Notes :
 
 
 
@@ -829,7 +812,6 @@ Notes :
 	- Racine du document
 	- Définit le nom du service et sonnamespace
 	- Peut contenir lesnamespacesutilisés par le service
-
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -850,13 +832,11 @@ Notes :
 
 
 
-
 ## Éléments WSDL : types
 
 - ```<types>```
 	- Définition des types/éléments XSD
 	- Possibilité d'importer des schémas XSD
-
 
 ```
 <wsdl:types>
@@ -884,7 +864,6 @@ Notes :
 	- Définition des messages (entrée/sortie/erreur)
 	- S'appuie sur les éléments/types des schémas XSD
 
-
 ```
 <message>
 <partname="parameters" element="tns:voyageService"/>
@@ -907,7 +886,6 @@ Notes :
 	- PortType= Interface
 	- Définit les opérations fournies par le service (<operation>)
 	- Un message peut être composé de un ou plusieurs éléments/types
-
 
 ```
 <portType name="VoyageService">
@@ -1002,7 +980,6 @@ Notes :
 
 
 
-
 ## Solicit-Response et Notification (1/2)
 
 - Solicit-Response
@@ -1029,7 +1006,6 @@ Notes :
 
 - Opérations interdites par le WS-I Basic Profile
 
-
 ```
 R2303 - A DESCRIPTION MUST NOT use Solicit-Response and 
 Notification type operations in a wsdl:portTypedefinition.
@@ -1047,7 +1023,6 @@ Notes :
 - ```<binding>```
 	- Relie unportType(ie. description abstraite) à des technologies spécifiques de communication
 	- Permet au consommateur de savoir comment appeler le service
-
 
 ```
 <wsdl:binding
@@ -1104,7 +1079,6 @@ Notes :
 	- Le nom de l'opération est stockée directement dans le Body du message
 	- La validation des données est difficile
 
-
 Notes :
 
 
@@ -1116,7 +1090,6 @@ Notes :
 	- Le nom de l'opération appelée n'est pas disponible
 
 - Remarque sur l'encodage Literal: l'encodage des requêtes/réponses s'appuie uniquement sur les schémas XSD (contrairement à SOAP/encoded)
-
 
 Notes :
 
@@ -1243,6 +1216,7 @@ xmlns:xs="http://www.w3.org/2001/XMLSchema">
 ...
 </xs:schema>
 ```
+
 Notes :
 
 
@@ -1291,7 +1265,6 @@ Notes :
 
 
 
-
 ## Étapes de création d'un WS en Contract-First
 
 - Créer un WSDL
@@ -1318,7 +1291,6 @@ Notes :
 Nom du package des classes Implémentation du service
 
 ```
-
 
 Notes :
 
@@ -1377,7 +1349,6 @@ public boolean estDisponible() {…}
 }
 ```
 
-
 Notes :
 
 
@@ -1387,7 +1358,6 @@ Notes :
 - L'implémentation du service est un POJO annoté avec @WebService (ie. comme le SEI)
 
 - Il est possible de créer le squelette de l'implémentation via le paramètre *-impl* de wsdl2java
-
 
 Notes :
 
@@ -1435,11 +1405,9 @@ Notes :
 
 
 
-## Déployer CXF dans un conteneur JavaEE
-
+## Déployer CXF dans un conteneur JEE
 
 ![](ressources/images/deploiement.PNG)
-
 
 Notes :
 
@@ -1451,9 +1419,7 @@ Notes :
 - Créer une application Web
 ![](ressources/images/05_-_Déploiement-100000000000024F00000067E3378563.png)
 
-
 Notes :
-
 
 
 
@@ -1480,7 +1446,6 @@ Notes :
 <figure>
 	<image src="ressources/images/05_-_Déploiement-100000000000021A000000CF78A99015.png" width="40%"/>
 </figure>	
-
 
 Notes :
 
@@ -1518,7 +1483,6 @@ Notes :
 
 - cxf-servlet.xml: Déclaration des endpoints Web Services
 
-
 ```
 <beans xmlns="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1537,7 +1501,6 @@ Notes :
 
 
 
-
 ## Créer une application CXF sous Eclipse (6/6)
 
 - Développer les Web Services
@@ -1546,13 +1509,10 @@ Notes :
 
 ![](ressources/images/05_-_Déploiement-100000000000014900000052F56F5F3E.png)
 
-
 - Accéder au Web Service via l'adresse du WADL
 http://localhost:8080/[NOM_PROJET]/services/[ENDPOINT_WS]?wsdl
 
-
 Notes :
-
 
 
 
@@ -1592,7 +1552,6 @@ sur l'attribut du pojo.
 Lors de la dé/sérialisation, le flux binaire sera automatiquement mappé sur l'attribut.  
 
 Notes :
-
 
 
 
@@ -1648,25 +1607,20 @@ Notes :
 
 
 
-
 <!-- .slide: class="page-questions" -->
 
 
+
+
 <!-- .slide: class="page-tp2" -->
-TP Bonus
-
-
-
+Bonus
 
 
 # WebServices  REST
 
-
 <!-- .slide: class="page-title" -->
 
-
 Notes :
-
 
 
 
@@ -1703,7 +1657,6 @@ Notes :
 
 
 
-
 ## Principes REST (1/5)
 
 - Adressabilité
@@ -1718,7 +1671,6 @@ Notes :
 - L'adresse est paramétrable
 
 - Il est primordial de bien définir les URIs
-
 
 Notes :
 
@@ -1806,7 +1758,6 @@ Notes :
 
 
 
-
 ## RESTful
 
 - Ce dit d'une application qui respecte l'ensemble des principes REST
@@ -1824,8 +1775,6 @@ Notes :
 
 
 
-
-
 ## En pratique
 
 - Utiliser l'API sans se soucier de l'implémentation
@@ -1835,8 +1784,6 @@ Notes :
 - Utilitaire pour construire la réponse : ResponseBuilder
 
 Notes :
-
-
 
 
 ## Le service
@@ -1909,6 +1856,7 @@ public Response list() {
 return Response.ok(library.list()).build();
 }
 ````
+
 Notes :
 
 
@@ -2019,8 +1967,8 @@ return Response.noContent().build();
 ````
 HTTP Response : 204 No Content
 ````
-Notes :
 
+Notes :
 
 
 
