@@ -73,7 +73,6 @@ Notes :
 	- Langage/Protocole de communication
 	- Permet la transmission de messages standardisés entre acteurs d'un système distribué
 
-	
 Notes :
 
 
